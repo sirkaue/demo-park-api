@@ -1,6 +1,5 @@
 package com.sirkaue.demoparkapi.entities;
 
-import com.sirkaue.demoparkapi.entities.enums.Role;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -11,9 +10,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "usuarios")
 public class Usuario implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -33,6 +29,9 @@ public class Usuario implements Serializable {
     private String criadoPor;
     @Column(name = "modificado_por")
     private String modificadoPor;
+    public enum Role {
+        ROLE_ADMIN, ROLE_CLIENTE
+    }
 
     public Usuario() {
     }
