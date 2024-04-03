@@ -1,6 +1,5 @@
 package com.sirkaue.demoparkapi.entities;
 
-import com.sirkaue.demoparkapi.entities.enums.Role;
 import jakarta.persistence.*;
 
 import java.io.Serial;
@@ -33,6 +32,9 @@ public class Usuario implements Serializable {
     private String criadoPor;
     @Column(name = "modificado_por")
     private String modificadoPor;
+    public enum Role {
+        ROLE_ADMIN, ROLE_CLIENTE
+    }
 
     public Usuario() {
     }
