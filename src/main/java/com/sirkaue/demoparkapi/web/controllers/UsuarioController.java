@@ -2,6 +2,9 @@ package com.sirkaue.demoparkapi.web.controllers;
 
 import com.sirkaue.demoparkapi.entities.Usuario;
 import com.sirkaue.demoparkapi.services.UsuarioService;
+import com.sirkaue.demoparkapi.web.dtos.UsuarioCreateDto;
+import com.sirkaue.demoparkapi.web.dtos.UsuarioResponseDto;
+import com.sirkaue.demoparkapi.web.dtos.mappers.UsuarioMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +21,9 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
-        Usuario user = usuarioService.salvar(usuario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    public ResponseEntity<UsuarioResponseDto> create(@RequestBody UsuarioCreateDto createDto) {
+        Usuario user = usuarioService.salvar(UsuarioMapper.toUsuario(createDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(user));
     }
 
     @GetMapping("/{id}")
