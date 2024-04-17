@@ -4,6 +4,7 @@ import com.sirkaue.demoparkapi.entities.Usuario;
 import com.sirkaue.demoparkapi.services.UsuarioService;
 import com.sirkaue.demoparkapi.web.dtos.UsuarioCreateDto;
 import com.sirkaue.demoparkapi.web.dtos.UsuarioResponseDto;
+import com.sirkaue.demoparkapi.web.dtos.UsuarioSenhaDto;
 import com.sirkaue.demoparkapi.web.dtos.mappers.UsuarioMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +34,9 @@ public class UsuarioController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Usuario> updatePassword(@PathVariable Long id, @RequestBody Usuario usuario) {
-        Usuario user = usuarioService.editarSenha(id, usuario.getPassword());
-        return ResponseEntity.ok(user);
+    public ResponseEntity<Void> updatePassword(@PathVariable Long id, @RequestBody UsuarioSenhaDto dto) {
+        Usuario user = usuarioService.editarSenha(id, dto.getSenhaAtual(), dto.getNovaSenha(), dto.getConfirmaSenha());
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping
