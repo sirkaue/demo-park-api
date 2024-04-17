@@ -6,6 +6,7 @@ import com.sirkaue.demoparkapi.web.dtos.UsuarioCreateDto;
 import com.sirkaue.demoparkapi.web.dtos.UsuarioResponseDto;
 import com.sirkaue.demoparkapi.web.dtos.UsuarioSenhaDto;
 import com.sirkaue.demoparkapi.web.dtos.mappers.UsuarioMapper;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioResponseDto> create(@RequestBody UsuarioCreateDto createDto) {
+    public ResponseEntity<UsuarioResponseDto> create(@Valid @RequestBody UsuarioCreateDto createDto) {
         Usuario user = usuarioService.salvar(UsuarioMapper.toUsuario(createDto));
         return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(user));
     }
