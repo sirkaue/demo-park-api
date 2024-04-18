@@ -1,4 +1,4 @@
-package com.sirkaue.demoparkapi.web.dto.mappers;
+package com.sirkaue.demoparkapi.web.dto.mapper;
 
 import com.sirkaue.demoparkapi.entity.Usuario;
 import com.sirkaue.demoparkapi.web.dto.UsuarioCreateDto;

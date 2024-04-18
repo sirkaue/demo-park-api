@@ -5,7 +5,7 @@ import com.sirkaue.demoparkapi.service.UsuarioService;
 import com.sirkaue.demoparkapi.web.dto.UsuarioCreateDto;
 import com.sirkaue.demoparkapi.web.dto.UsuarioResponseDto;
 import com.sirkaue.demoparkapi.web.dto.UsuarioSenhaDto;
-import com.sirkaue.demoparkapi.web.dto.mappers.UsuarioMapper;
+import com.sirkaue.demoparkapi.web.dto.mapper.UsuarioMapper;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
