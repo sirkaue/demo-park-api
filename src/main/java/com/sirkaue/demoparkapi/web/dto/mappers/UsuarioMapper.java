@@ -1,8 +1,8 @@
-package com.sirkaue.demoparkapi.web.dtos.mappers;
+package com.sirkaue.demoparkapi.web.dto.mappers;
 
-import com.sirkaue.demoparkapi.entities.Usuario;
-import com.sirkaue.demoparkapi.web.dtos.UsuarioCreateDto;
-import com.sirkaue.demoparkapi.web.dtos.UsuarioResponseDto;
+import com.sirkaue.demoparkapi.entity.Usuario;
+import com.sirkaue.demoparkapi.web.dto.UsuarioCreateDto;
+import com.sirkaue.demoparkapi.web.dto.UsuarioResponseDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 

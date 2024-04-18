@@ -1,11 +1,11 @@
-package com.sirkaue.demoparkapi.web.controllers;
+package com.sirkaue.demoparkapi.web.controller;
 
-import com.sirkaue.demoparkapi.entities.Usuario;
-import com.sirkaue.demoparkapi.services.UsuarioService;
-import com.sirkaue.demoparkapi.web.dtos.UsuarioCreateDto;
-import com.sirkaue.demoparkapi.web.dtos.UsuarioResponseDto;
-import com.sirkaue.demoparkapi.web.dtos.UsuarioSenhaDto;
-import com.sirkaue.demoparkapi.web.dtos.mappers.UsuarioMapper;
+import com.sirkaue.demoparkapi.entity.Usuario;
+import com.sirkaue.demoparkapi.service.UsuarioService;
+import com.sirkaue.demoparkapi.web.dto.UsuarioCreateDto;
+import com.sirkaue.demoparkapi.web.dto.UsuarioResponseDto;
+import com.sirkaue.demoparkapi.web.dto.UsuarioSenhaDto;
+import com.sirkaue.demoparkapi.web.dto.mappers.UsuarioMapper;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

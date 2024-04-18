@@ -1,4 +1,4 @@
-package com.sirkaue.demoparkapi.web.dtos;
+package com.sirkaue.demoparkapi.web.dto;
 
 public class UsuarioResponseDto {
     private Long id;

@@ -1,7 +1,7 @@
-package com.sirkaue.demoparkapi.services;
+package com.sirkaue.demoparkapi.service;
 
-import com.sirkaue.demoparkapi.entities.Usuario;
-import com.sirkaue.demoparkapi.repositories.UsuarioRepository;
+import com.sirkaue.demoparkapi.entity.Usuario;
+import com.sirkaue.demoparkapi.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

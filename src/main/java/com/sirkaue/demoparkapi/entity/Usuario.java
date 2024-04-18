@@ -1,8 +1,7 @@
-package com.sirkaue.demoparkapi.entities;
+package com.sirkaue.demoparkapi.entity;
 
 import jakarta.persistence.*;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
