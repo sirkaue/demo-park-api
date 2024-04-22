@@ -1,6 +1,7 @@
 package com.sirkaue.demoparkapi.service;
 
 import com.sirkaue.demoparkapi.entity.Usuario;
+import com.sirkaue.demoparkapi.exception.EntityNotFoundException;
 import com.sirkaue.demoparkapi.exception.UsernameUniqueViolationException;
 import com.sirkaue.demoparkapi.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,8 @@ public class UsuarioService {
 
     @Transactional(readOnly = true)
     public Usuario buscarPorId(Long id) {
-        return usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+        return usuarioRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Usuário id=%s não encontrado.", id)));
     }
 
     @Transactional
