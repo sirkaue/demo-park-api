@@ -1,6 +1,7 @@
 package com.sirkaue.demoparkapi.service;
 
 import com.sirkaue.demoparkapi.entity.Usuario;
+import com.sirkaue.demoparkapi.exception.UsernameUniqueViolationException;
 import com.sirkaue.demoparkapi.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,11 @@ public class UsuarioService {
 
     @Transactional
     public Usuario salvar(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+        try {
+            return usuarioRepository.save(usuario);
+        } catch (org.springframework.dao.DataIntegrityViolationException ex) {
+            throw new UsernameUniqueViolationException(String.format("Username {%s} já cadastrado", usuario.getUsername()));
+        }
     }
 
     @Transactional(readOnly = true)
