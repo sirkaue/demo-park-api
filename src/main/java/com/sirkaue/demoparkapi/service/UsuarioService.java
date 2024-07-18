@@ -2,6 +2,7 @@ package com.sirkaue.demoparkapi.service;
 
 import com.sirkaue.demoparkapi.entity.Usuario;
 import com.sirkaue.demoparkapi.exception.EntityNotFoundException;
+import com.sirkaue.demoparkapi.exception.PasswordInvalidException;
 import com.sirkaue.demoparkapi.exception.UsernameUniqueViolationException;
 import com.sirkaue.demoparkapi.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +35,11 @@ public class UsuarioService {
     @Transactional
     public Usuario editarSenha(Long id, String senhaAtual, String novaSenha, String confirmaSenha) {
         if (!novaSenha.equals(confirmaSenha)) {
-            throw new RuntimeException("Nova senha não confere com confirmação senha.");
+            throw new PasswordInvalidException("Nova senha não confere com confirmação senha.");
         }
         Usuario user = buscarPorId(id);
         if (!user.getPassword().equals(senhaAtual)) {
-            throw new RuntimeException("Sua senha não confere.");
+            throw new PasswordInvalidException("Sua senha não confere.");
         }
         user.setPassword(novaSenha);
         return user;
