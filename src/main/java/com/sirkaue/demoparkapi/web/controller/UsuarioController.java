@@ -7,6 +7,7 @@ import com.sirkaue.demoparkapi.web.dto.UsuarioResponseDto;
 import com.sirkaue.demoparkapi.web.dto.UsuarioSenhaDto;
 import com.sirkaue.demoparkapi.web.dto.mapper.UsuarioMapper;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +17,9 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/usuarios")
 public class UsuarioController {
-    private UsuarioService usuarioService;
 
-    public UsuarioController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
-    }
+    @Autowired
+    private UsuarioService usuarioService;
 
     @PostMapping
     public ResponseEntity<UsuarioResponseDto> create(@Valid @RequestBody UsuarioCreateDto createDto) {
