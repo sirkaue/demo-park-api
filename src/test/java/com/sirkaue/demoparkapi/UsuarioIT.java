@@ -156,9 +156,9 @@ public class UsuarioIT {
     public void buscarUsuario_ComIdInexistente_RetornarErrorMessageComStatus404() {
         ErrorMessage responseBody = testClient
                 .get()
-                .uri("/api/v1/usuarios/100")
+                .uri("/api/v1/usuarios/0")
                 .exchange()
-                .expectStatus().isOk()
+                .expectStatus().isNotFound()
                 .expectBody(ErrorMessage.class)
                 .returnResult().getResponseBody();
 
