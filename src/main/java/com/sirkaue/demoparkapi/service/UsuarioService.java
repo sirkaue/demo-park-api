@@ -41,6 +41,9 @@ public class UsuarioService {
         if (!user.getPassword().equals(senhaAtual)) {
             throw new PasswordInvalidException("Sua senha não confere.");
         }
+        if (user.getPassword().equals(novaSenha)) {
+            throw new PasswordInvalidException("A nova senha não pode ser a mesma que a senha atual.");
+        }
         user.setPassword(novaSenha);
         return user;
     }
