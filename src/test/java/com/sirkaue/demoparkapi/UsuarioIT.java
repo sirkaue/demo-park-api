@@ -173,7 +173,7 @@ public class UsuarioIT {
                 .patch()
                 .uri("/api/v1/usuarios/100")
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(new UsuarioSenhaDto("123456", "123456", "123456"))
+                .bodyValue(new UsuarioSenhaDto("123456", "101010", "101010"))
                 .exchange()
                 .expectStatus().isNoContent();
     }
