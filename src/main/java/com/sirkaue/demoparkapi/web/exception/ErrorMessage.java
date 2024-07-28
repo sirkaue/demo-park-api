@@ -28,6 +28,7 @@ public class ErrorMessage {
         statusText = status.getReasonPhrase();
         this.message = message;
     }
+
     public ErrorMessage(HttpServletRequest request, HttpStatus status, String message, BindingResult result) {
         path = request.getRequestURI();
         method = request.getMethod();
