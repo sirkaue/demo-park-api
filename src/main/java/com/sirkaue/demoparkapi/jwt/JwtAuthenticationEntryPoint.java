@@ -1,6 +1,5 @@
 package com.sirkaue.demoparkapi.jwt;
 
-import com.sirkaue.demoparkapi.web.controller.AutenticacaoController;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
