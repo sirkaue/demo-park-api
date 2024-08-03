@@ -7,14 +7,14 @@ import org.modelmapper.ModelMapper;
 
 public class ClienteMapper {
 
+    private ClienteMapper() {
+    }
+
     public static Cliente toCliente(ClienteCreateDto dto) {
         return new ModelMapper().map(dto, Cliente.class);
     }
 
     public static ClienteResponseDto toDto(Cliente cliente) {
         return new ModelMapper().map(cliente, ClienteResponseDto.class);
-    }
-
-    private ClienteMapper() {
     }
 }
