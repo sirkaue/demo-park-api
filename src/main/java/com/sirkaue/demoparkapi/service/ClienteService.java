@@ -2,6 +2,7 @@ package com.sirkaue.demoparkapi.service;
 
 import com.sirkaue.demoparkapi.entity.Cliente;
 import com.sirkaue.demoparkapi.exception.CpfUniqueViolationException;
+import com.sirkaue.demoparkapi.exception.EntityNotFoundException;
 import com.sirkaue.demoparkapi.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,10 +18,16 @@ public class ClienteService {
     @Transactional
     public Cliente salvar(Cliente cliente) {
         try {
-           return clienteRepository.save(cliente);
+            return clienteRepository.save(cliente);
         } catch (DataIntegrityViolationException e) {
             throw new CpfUniqueViolationException(String.format("CPF '%s' não pode ser cadastrado, já existe" +
                     " no sistema", cliente.getCpf()));
         }
+    }
+
+    @Transactional(readOnly = true)
+    public Cliente buscarPorId(Long id) {
+        return clienteRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Cliente id=%s não encontrado no sistema.", id)));
     }
 }
