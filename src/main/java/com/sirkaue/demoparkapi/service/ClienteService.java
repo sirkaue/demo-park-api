@@ -4,6 +4,7 @@ import com.sirkaue.demoparkapi.entity.Cliente;
 import com.sirkaue.demoparkapi.exception.CpfUniqueViolationException;
 import com.sirkaue.demoparkapi.exception.EntityNotFoundException;
 import com.sirkaue.demoparkapi.repository.ClienteRepository;
+import com.sirkaue.demoparkapi.repository.projection.ClienteProjection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -34,7 +35,7 @@ public class ClienteService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Cliente> buscarTodos(Pageable pageable) {
-        return clienteRepository.findAll(pageable);
+    public Page<ClienteProjection> buscarTodos(Pageable pageable) {
+        return clienteRepository.findAllPageable(pageable);
     }
 }
