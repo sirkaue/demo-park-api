@@ -1,7 +1,6 @@
 package com.sirkaue.demoparkapi.web.dto.mapper;
 
 import com.sirkaue.demoparkapi.web.dto.PageableDto;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 
 public class PageableMapper {
@@ -9,7 +8,13 @@ public class PageableMapper {
     private PageableMapper() {
     }
 
-    public static PageableDto toDto(Page page) {
-        return new ModelMapper().map(page, PageableDto.class);
+    public static <T> PageableDto<T> toDto(Page<T> page) {
+        PageableDto<T> dto = new PageableDto<>();
+        dto.setContent(page.getContent());
+        dto.setNumber((page.getNumber()));
+        dto.setSize(page.getSize());
+        dto.setTotalElements(page.getTotalElements());
+        dto.setTotalPages(page.getTotalPages());
+        return dto;
     }
 }

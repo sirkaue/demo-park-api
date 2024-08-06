@@ -18,7 +18,7 @@ public class PageableDto<T> {
     @JsonProperty("pageElements")
     private int numberOfElements;
     private int totalPages;
-    private int totalElements;
+    private long totalElements;
 
     public List<T> getContent() {
         return content;
@@ -76,11 +76,11 @@ public class PageableDto<T> {
         this.totalPages = totalPages;
     }
 
-    public int getTotalElements() {
+    public long getTotalElements() {
         return totalElements;
     }
 
-    public void setTotalElements(int totalElements) {
+    public void setTotalElements(long totalElements) {
         this.totalElements = totalElements;
     }
 }
