@@ -1,9 +1,6 @@
 package com.sirkaue.demoparkapi.web.exception;
 
-import com.sirkaue.demoparkapi.exception.CpfUniqueViolationException;
-import com.sirkaue.demoparkapi.exception.EntityNotFoundException;
-import com.sirkaue.demoparkapi.exception.PasswordInvalidException;
-import com.sirkaue.demoparkapi.exception.UsernameUniqueViolationException;
+import com.sirkaue.demoparkapi.exception.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +44,10 @@ public class ApiExceptionHandler {
                 .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, ex.getMessage()));
     }
 
-    @ExceptionHandler({UsernameUniqueViolationException.class, CpfUniqueViolationException.class})
+    @ExceptionHandler({
+            UsernameUniqueViolationException.class, CpfUniqueViolationException.class,
+            CodigoUniqueViolationException.class
+    })
     public ResponseEntity<ErrorMessage> uniqueViolationException(RuntimeException ex, HttpServletRequest request) {
         log.error("Api Error - ", ex);
         return ResponseEntity
