@@ -112,7 +112,7 @@ public class UsuarioController {
     }
 
     @Operation(summary = "Recuperar todos os usuários cadastrados", description = "Requisição exige um Bearer Token. " +
-            "Acesso restrito a ADMIN",
+            "Acesso restrito a Role='ADMIN'",
             security = @SecurityRequirement(name = "security"),
             responses = {
                     @ApiResponse(
