@@ -43,7 +43,7 @@ public class Vaga implements Serializable {
     @Column(name = "modificado_por")
     private String modificadoPor;
 
-    private enum StatusVaga {
+    public enum StatusVaga {
         LIVRE, OCUPADA
     }
 
