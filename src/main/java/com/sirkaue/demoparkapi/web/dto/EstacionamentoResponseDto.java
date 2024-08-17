@@ -1,7 +1,7 @@
 package com.sirkaue.demoparkapi.web.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class EstacionamentoResponseDto {
 
@@ -11,8 +11,8 @@ public class EstacionamentoResponseDto {
     private String cor;
     private String clienteCpf;
     private String recibo;
-    private LocalDate dataEntrada;
-    private LocalDate dataSaida;
+    private LocalDateTime dataEntrada;
+    private LocalDateTime dataSaida;
     private String vagaCodigo;
     private BigDecimal valor;
     private BigDecimal desconto;
@@ -21,8 +21,8 @@ public class EstacionamentoResponseDto {
     }
 
     public EstacionamentoResponseDto(String placa, String marca, String modelo, String cor, String clienteCpf,
-                                     String recibo, LocalDate dataEntrada, LocalDate dataSaida, String vagaCodigo,
-                                     BigDecimal valor, BigDecimal desconto) {
+                                     String recibo, LocalDateTime dataEntrada, LocalDateTime dataSaida,
+                                     String vagaCodigo, BigDecimal valor, BigDecimal desconto) {
         this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;
@@ -84,19 +84,19 @@ public class EstacionamentoResponseDto {
         this.recibo = recibo;
     }
 
-    public LocalDate getDataEntrada() {
+    public LocalDateTime getDataEntrada() {
         return dataEntrada;
     }
 
-    public void setDataEntrada(LocalDate dataEntrada) {
+    public void setDataEntrada(LocalDateTime dataEntrada) {
         this.dataEntrada = dataEntrada;
     }
 
-    public LocalDate getDataSaida() {
+    public LocalDateTime getDataSaida() {
         return dataSaida;
     }
 
-    public void setDataSaida(LocalDate dataSaida) {
+    public void setDataSaida(LocalDateTime dataSaida) {
         this.dataSaida = dataSaida;
     }
 

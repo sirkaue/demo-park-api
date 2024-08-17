@@ -17,12 +17,18 @@ public class ClienteVagaMapper {
     }
 
 // Forma manual de se fazer 'mapeamento de propriedade aninhada (encadeamento)'.
+
 //    public static ClienteVaga toClienteVaga(EstacionamentoCreateDto dto) {
 //        ClienteVaga clienteVaga = new ClienteVaga();
 //        Cliente cliente = new Cliente();
 //
+//        clienteVaga.setPlaca(dto.getPlaca());
+//        clienteVaga.setMarca(dto.getMarca());
+//        clienteVaga.setModelo(dto.getModelo());
+//        clienteVaga.setCor(dto.getCor());
 //        cliente.setCpf(dto.getClienteCpf());
 //        clienteVaga.setCliente(cliente);
+//
 //        return clienteVaga;
 //    }
 
