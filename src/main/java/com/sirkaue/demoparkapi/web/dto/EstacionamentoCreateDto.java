@@ -37,6 +37,14 @@ public class EstacionamentoCreateDto {
         this.clienteCpf = clienteCpf;
     }
 
+    private EstacionamentoCreateDto(Builder builder) {
+        this.placa = builder.placa;
+        this.marca = builder.marca;
+        this.modelo = builder.modelo;
+        this.cor = builder.cor;
+        this.clienteCpf = builder.clienteCpf;
+    }
+
     public String getPlaca() {
         return placa;
     }
@@ -75,5 +83,46 @@ public class EstacionamentoCreateDto {
 
     public void setClienteCpf(String clienteCpf) {
         this.clienteCpf = clienteCpf;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private String placa;
+        private String marca;
+        private String modelo;
+        private String cor;
+        private String clienteCpf;
+
+        public Builder placa(String placa) {
+            this.placa = placa;
+            return this;
+        }
+
+        public Builder marca(String marca) {
+            this.marca = marca;
+            return this;
+        }
+
+        public Builder modelo(String modelo) {
+            this.modelo = modelo;
+            return this;
+        }
+
+        public Builder cor(String cor) {
+            this.cor = cor;
+            return this;
+        }
+
+        public Builder clienteCpf(String clienteCpf) {
+            this.clienteCpf = clienteCpf;
+            return this;
+        }
+
+        public EstacionamentoCreateDto build() {
+            return new EstacionamentoCreateDto(this);
+        }
     }
 }
