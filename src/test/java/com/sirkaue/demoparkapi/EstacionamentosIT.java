@@ -44,4 +44,48 @@ public class EstacionamentosIT {
                 .jsonPath("dataEntrada").exists()
                 .jsonPath("vagaCodigo").exists();
     }
+
+    @Test
+    public void criarCheckIn_ComRoleCliente_RetornarErrorMessageComStatus403() {
+        EstacionamentoCreateDto createDto = EstacionamentoCreateDto.builder()
+                .placa("WER-1111")
+                .marca("FIAT")
+                .modelo("PALIO 1.0")
+                .cor("AZUL")
+                .clienteCpf("98401203015")
+                .build();
+
+        testClient.post().uri("/api/v1/estacionamentos/check-in")
+                .contentType(MediaType.APPLICATION_JSON)
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "bia@email.com", "123456"))
+                .bodyValue(createDto)
+                .exchange()
+                .expectStatus().isForbidden()
+                .expectBody()
+                .jsonPath("status").isEqualTo("403")
+                .jsonPath("path").isEqualTo("/api/v1/estacionamentos/check-in")
+                .jsonPath("method").isEqualTo("POST");
+    }
+
+    @Test
+    public void criarCheckIn_ComDadosInvalidos_RetornarErrorMessageComStatus422() {
+        EstacionamentoCreateDto createDto = EstacionamentoCreateDto.builder()
+                .placa("")
+                .marca("")
+                .modelo("")
+                .cor("")
+                .clienteCpf("")
+                .build();
+
+        testClient.post().uri("/api/v1/estacionamentos/check-in")
+                .contentType(MediaType.APPLICATION_JSON)
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "bia@email.com", "123456"))
+                .bodyValue(createDto)
+                .exchange()
+                .expectStatus().isEqualTo(422)
+                .expectBody()
+                .jsonPath("status").isEqualTo("422")
+                .jsonPath("path").isEqualTo("/api/v1/estacionamentos/check-in")
+                .jsonPath("method").isEqualTo("POST");
+    }
 }
