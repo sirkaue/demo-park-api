@@ -182,4 +182,48 @@ public class EstacionamentosIT {
                 .jsonPath("path").isEqualTo("/api/v1/estacionamentos/check-in/20230313-999999")
                 .jsonPath("method").isEqualTo("GET");
     }
+
+    @Test
+    public void criarCheckOut_ComReciboExistente_RetornarSucesso() {
+        testClient.patch().uri("/api/v1/estacionamentos/check-out/{recibo}", "20230313-101300")
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@email.com", "123456"))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("placa").isEqualTo("FIT-1020")
+                .jsonPath("marca").isEqualTo("FIAT")
+                .jsonPath("modelo").isEqualTo("PALIO")
+                .jsonPath("cor").isEqualTo("VERDE")
+                .jsonPath("dataEntrada").isEqualTo("2023-03-13 10:15:00")
+                .jsonPath("clienteCpf").isEqualTo("98401203015")
+                .jsonPath("vagaCodigo").isEqualTo("A-01")
+                .jsonPath("recibo").isEqualTo("20230313-101300")
+                .jsonPath("dataSaida").exists()
+                .jsonPath("valor").exists()
+                .jsonPath("desconto").exists();
+    }
+
+    @Test
+    public void criarCheckOut_ComReciboInexistente_RetornarErrorStatus404() {
+        testClient.patch().uri("/api/v1/estacionamentos/check-out/{recibo}", "20230313-000000")
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "ana@email.com", "123456"))
+                .exchange()
+                .expectStatus().isNotFound()
+                .expectBody()
+                .jsonPath("status").isEqualTo("404")
+                .jsonPath("path").isEqualTo("/api/v1/estacionamentos/check-out/20230313-000000")
+                .jsonPath("method").isEqualTo("PATCH");
+    }
+
+    @Test
+    public void criarCheckOut_ComRoleCliente_RetornarErrorStatus403() {
+        testClient.patch().uri("/api/v1/estacionamentos/check-out/{recibo}", "20230313-101300")
+                .headers(JwtAuthentication.getHeaderAuthorization(testClient, "bia@email.com", "123456"))
+                .exchange()
+                .expectStatus().isForbidden()
+                .expectBody()
+                .jsonPath("status").isEqualTo("403")
+                .jsonPath("path").isEqualTo("/api/v1/estacionamentos/check-out/20230313-101300")
+                .jsonPath("method").isEqualTo("PATCH");
+    }
 }
