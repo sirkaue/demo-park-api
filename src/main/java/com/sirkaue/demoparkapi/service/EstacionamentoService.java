@@ -40,7 +40,8 @@ public class EstacionamentoService {
     public ClienteVaga checkOut(String recibo) {
         ClienteVaga clienteVaga = clienteVagaService.buscarPorRecibo(recibo);
         LocalDateTime dataSaida = LocalDateTime.now();
-        BigDecimal valor = EstacionamentoUtils.calcularCusto(clienteVaga.getDataEntrada(), dataSaida);
+        LocalDateTime dataEntrada = clienteVaga.getDataEntrada();
+        BigDecimal valor = EstacionamentoUtils.calcularCusto(dataEntrada, dataSaida);
         clienteVaga.setValor(valor);
 
         long totalDeVezes = clienteVagaService.getTotalDeVezesEstacionamentoCompleto(clienteVaga.getCliente().getCpf());

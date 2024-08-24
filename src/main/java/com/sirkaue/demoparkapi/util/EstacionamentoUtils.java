@@ -34,21 +34,20 @@ public class EstacionamentoUtils {
             total = PRIMEIROS_60_MINUTES;
         } else {
             long addicionalMinutes = minutes - 60;
-            Double totalParts = ((double) addicionalMinutes / 15);
-            if (totalParts > totalParts.intValue()) {
-                total += PRIMEIROS_60_MINUTES + (ADICIONAL_15_MINUTES * (totalParts.intValue() + 1));
+            double totalParts = ((double) addicionalMinutes / 15);
+            if (totalParts > (int) totalParts) {
+                total += PRIMEIROS_60_MINUTES + (ADICIONAL_15_MINUTES * ((int) totalParts + 1));
             } else {
-                total += PRIMEIROS_60_MINUTES + (ADICIONAL_15_MINUTES * totalParts.intValue());
+                total += PRIMEIROS_60_MINUTES + (ADICIONAL_15_MINUTES * (int) totalParts);
             }
         }
-
         return new BigDecimal(total).setScale(2, RoundingMode.HALF_EVEN);
     }
 
     public static BigDecimal calcularDesconto(BigDecimal custo, long numeroDeVezes) {
         BigDecimal desconto = ((numeroDeVezes > 0) && (numeroDeVezes % 10 == 0))
-                ? custo.multiply(new BigDecimal(DESCONTO_PERCENTUAL))
-                : new BigDecimal(0);
+                ? custo.multiply(BigDecimal.valueOf(DESCONTO_PERCENTUAL))
+                : BigDecimal.valueOf(0.0);
         return desconto.setScale(2, RoundingMode.HALF_EVEN);
     }
 }
