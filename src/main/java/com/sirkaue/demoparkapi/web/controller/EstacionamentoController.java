@@ -194,10 +194,38 @@ public class EstacionamentoController {
         return ResponseEntity.ok(PageableMapper.toDto(projection));
     }
 
+    @Operation(summary = "Localizar os registros de estacionamentos do cliente logado",
+            description = "Localizar os registros de estacionamentos do cliente logado." +
+                    "Requisição exige um Bearer Token. Acesso restrito a Role='CLIENTE'.",
+            security = @SecurityRequirement(name = "security"),
+            parameters = {
+                    @Parameter(in = QUERY, name = "page", description = "Representa a página retornada",
+                            content = @Content(schema = @Schema(type = "integer", defaultValue = "0"))),
+                    @Parameter(in = QUERY, name = "size", description = "Representa o total de elementos por página",
+                            content = @Content(schema = @Schema(type = "integer", defaultValue = "5"))),
+                    @Parameter(in = QUERY, name = "sort", description = "Campo de ordenação padrão 'dataEntrada,asc'. ",
+                            array = @ArraySchema(schema = @Schema(type = "string", defaultValue = "dataEntrada,asc")),
+                            hidden = true)
+            },
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Recurso localizado com sucesso",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = PageableDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Recurso não permitido ao perfil de ADMIN",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorMessage.class))
+                    )
+            })
     @GetMapping
     @PreAuthorize("hasRole('CLIENTE')")
     public ResponseEntity<PageableDto<ClienteVagaProjection>> getAllEstacionamentosDoCliente(
             @AuthenticationPrincipal JwtUserDetails user,
+            @Parameter(hidden = true)
             @PageableDefault(
                     size = 5,
                     sort = "dataEntrada",
