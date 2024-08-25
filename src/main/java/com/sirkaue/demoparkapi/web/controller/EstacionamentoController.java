@@ -79,6 +79,25 @@ public class EstacionamentoController {
         return ResponseEntity.created(location).body(responseDto);
     }
 
+
+    @Operation(summary = "Operação de buscar recibo",
+            description = "Recurso para buscar recibo. Requisição exige um Bearer Token. " +
+                    "Acesso restrito a roles: ADMIN e CLIENTE.",
+            security = @SecurityRequirement(name = "security"),
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Recurso buscado com sucesso",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = EstacionamentoResponseDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Recibo não encontrado no sistema ou check-out já realizado",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorMessage.class))
+                    )
+            })
     @GetMapping("/check-in/{recibo}")
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE')")
     public ResponseEntity<EstacionamentoResponseDto> getByRecibo(@PathVariable String recibo) {
@@ -87,6 +106,31 @@ public class EstacionamentoController {
         return ResponseEntity.ok(dto);
     }
 
+
+    @Operation(summary = "Operação de check-out",
+            description = "Recurso para realizar o check-out de um veículo no estacionamento. " +
+                    "Requisição exige um Bearer Token. Acesso restrito a Role='ADMIN'.",
+            security = @SecurityRequirement(name = "security"),
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Check-out realizado com sucesso",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = EstacionamentoResponseDto.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Recibo não encontrado no sistema ou check-out já realizado",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorMessage.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Recurso não permitido ao perfil de CLIENTE",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorMessage.class))
+                    )
+            })
     @PatchMapping("/check-out/{recibo}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<EstacionamentoResponseDto> checkOut(@PathVariable String recibo) {
