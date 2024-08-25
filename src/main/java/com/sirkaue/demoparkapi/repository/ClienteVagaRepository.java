@@ -5,6 +5,7 @@ import com.sirkaue.demoparkapi.repository.projection.ClienteVagaProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -17,4 +18,6 @@ public interface ClienteVagaRepository extends JpaRepository<ClienteVaga, Long> 
     long countByClienteCpfAndDataSaidaIsNotNull(String cpf);
 
     Page<ClienteVagaProjection> findAllByClienteCpf(String cpf, Pageable pageable);
+
+    Page<ClienteVagaProjection> findAllByClienteUsuarioId(Long id, Pageable pageable);
 }

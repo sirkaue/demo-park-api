@@ -1,6 +1,7 @@
 package com.sirkaue.demoparkapi.web.controller;
 
 import com.sirkaue.demoparkapi.entity.ClienteVaga;
+import com.sirkaue.demoparkapi.jwt.JwtUserDetails;
 import com.sirkaue.demoparkapi.repository.projection.ClienteVagaProjection;
 import com.sirkaue.demoparkapi.service.ClienteVagaService;
 import com.sirkaue.demoparkapi.service.EstacionamentoService;
@@ -28,6 +29,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -180,15 +182,27 @@ public class EstacionamentoController {
                                     schema = @Schema(implementation = ErrorMessage.class))
                     )
             })
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<PageableDto<ClienteVagaProjection>> getAllEstacionamentoPorCpf(
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<PageableDto<ClienteVagaProjection>> getAllEstacionamentosPorCpf(
             @PathVariable String cpf,
             @PageableDefault(
                     size = 5,
                     sort = "dataEntrada",
                     direction = Sort.Direction.ASC) Pageable pageable) {
         Page<ClienteVagaProjection> projection = clienteVagaService.buscarTodosPorClienteCpf(cpf, pageable);
+        return ResponseEntity.ok(PageableMapper.toDto(projection));
+    }
+
+    @GetMapping
+    @PreAuthorize("hasRole('CLIENTE')")
+    public ResponseEntity<PageableDto<ClienteVagaProjection>> getAllEstacionamentosDoCliente(
+            @AuthenticationPrincipal JwtUserDetails user,
+            @PageableDefault(
+                    size = 5,
+                    sort = "dataEntrada",
+                    direction = Sort.Direction.ASC) Pageable pageable) {
+        Page<ClienteVagaProjection> projection = clienteVagaService.buscarTodosPorUsuarioId(user.getId(), pageable);
         return ResponseEntity.ok(PageableMapper.toDto(projection));
     }
 }
