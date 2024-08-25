@@ -174,12 +174,6 @@ public class EstacionamentoController {
                                     schema = @Schema(implementation = PageableDto.class))
                     ),
                     @ApiResponse(
-                            responseCode = "404",
-                            description = "CPF do cliente não encontrado no sistema",
-                            content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = ErrorMessage.class))
-                    ),
-                    @ApiResponse(
                             responseCode = "403",
                             description = "Recurso não permitido ao perfil de CLIENTE",
                             content = @Content(mediaType = "application/json",

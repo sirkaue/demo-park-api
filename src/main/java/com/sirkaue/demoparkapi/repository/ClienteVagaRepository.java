@@ -16,6 +16,5 @@ public interface ClienteVagaRepository extends JpaRepository<ClienteVaga, Long> 
 
     long countByClienteCpfAndDataSaidaIsNotNull(String cpf);
 
-    @Query("SELECT cv FROM ClienteVaga cv WHERE cv.cliente.cpf = :cpf")
     Page<ClienteVagaProjection> findAllByClienteCpf(String cpf, Pageable pageable);
 }
