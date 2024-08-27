@@ -1,6 +1,7 @@
 package com.sirkaue.demoparkapi.web.controller;
 
 import com.sirkaue.demoparkapi.jwt.JwtToken;
+import com.sirkaue.demoparkapi.jwt.JwtUserDetailsService;
 import com.sirkaue.demoparkapi.jwt.JwtUserDetailsServiceImpl;
 import com.sirkaue.demoparkapi.web.dto.UsuarioLoginDto;
 import com.sirkaue.demoparkapi.web.dto.UsuarioResponseDto;
@@ -31,11 +32,11 @@ public class AutenticacaoController {
 
     private static final Logger log = LoggerFactory.getLogger(AutenticacaoController.class);
 
-    private final JwtUserDetailsServiceImpl detailsService;
+    private final JwtUserDetailsService detailsService;
 
     private final AuthenticationManager authenticationManager;
 
-    public AutenticacaoController(JwtUserDetailsServiceImpl detailsService, AuthenticationManager authenticationManager) {
+    public AutenticacaoController(JwtUserDetailsService detailsService, AuthenticationManager authenticationManager) {
         this.detailsService = detailsService;
         this.authenticationManager = authenticationManager;
     }

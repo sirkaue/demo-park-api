@@ -3,12 +3,11 @@ package com.sirkaue.demoparkapi.jwt;
 import com.sirkaue.demoparkapi.entity.Usuario;
 import com.sirkaue.demoparkapi.service.UsuarioService;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class JwtUserDetailsServiceImpl implements UserDetailsService {
+public class JwtUserDetailsServiceImpl implements JwtUserDetailsService {
 
     private final UsuarioService usuarioService;
 
@@ -22,6 +21,7 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
         return new JwtUserDetails(usuario);
     }
 
+    @Override
     public JwtToken getTokenAuthenticated(String username) {
         Usuario.Role role = usuarioService.buscarRolePorUsername(username);
         return JwtUtils.createToken(username, role.name().substring("ROLE_".length()));

@@ -2,6 +2,7 @@ package com.sirkaue.demoparkapi.config;
 
 import com.sirkaue.demoparkapi.jwt.JwtAuthenticationEntryPoint;
 import com.sirkaue.demoparkapi.jwt.JwtAuthorizationFilter;
+import com.sirkaue.demoparkapi.jwt.JwtUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -30,7 +31,7 @@ public class SpringSecurityConfig {
     };
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, JwtUserDetailsService jwtUserDetailsService) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
                 .formLogin(form -> form.disable())
@@ -41,14 +42,14 @@ public class SpringSecurityConfig {
                         .requestMatchers(DOCUMENTATION_OPENAPI).permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthorizationFilter(jwtUserDetailsService), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(new JwtAuthenticationEntryPoint()))
                 .build();
     }
 
     @Bean
-    public JwtAuthorizationFilter jwtAuthorizationFilter() {
-        return new JwtAuthorizationFilter();
+    public JwtAuthorizationFilter jwtAuthorizationFilter(JwtUserDetailsService jwtUserDetailsService) {
+        return new JwtAuthorizationFilter(jwtUserDetailsService);
     }
 
     @Bean
