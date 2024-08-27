@@ -19,7 +19,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -36,11 +35,14 @@ import static io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY;
 @RequestMapping("api/v1/clientes")
 public class ClienteController {
 
-    @Autowired
-    private ClienteService clienteService;
+    private final ClienteService clienteService;
 
-    @Autowired
-    private UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
+
+    public ClienteController(ClienteService clienteService, UsuarioService usuarioService) {
+        this.clienteService = clienteService;
+        this.usuarioService = usuarioService;
+    }
 
     @Operation(summary = "Criar um novo cliente", description = "Recurso para criar um novo cliente vinculado " +
             "a um usuário cadastrado. Requisição exige uso de um Bearer Token. Acesso restrito a Role='CLIENTE'",

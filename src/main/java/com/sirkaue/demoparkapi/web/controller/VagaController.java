@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,8 +25,11 @@ import java.net.URI;
 @RequestMapping("api/v1/vagas")
 public class VagaController {
 
-    @Autowired
-    private VagaService vagaService;
+    private final VagaService vagaService;
+
+    public VagaController(VagaService vagaService) {
+        this.vagaService = vagaService;
+    }
 
     @Operation(summary = "Criar uma nova vaga", description = "Recurso para criar uma nova vaga." +
             "Requisição exige um Bearer Token. Acesso restrito a Role='ADMIN'",

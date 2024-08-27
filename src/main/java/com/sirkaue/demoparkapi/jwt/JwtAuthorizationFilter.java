@@ -20,7 +20,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private static final Logger log = LoggerFactory.getLogger(JwtAuthorizationFilter.class);
 
     @Autowired
-    private JwtUserDetailsService detailsService;
+    private JwtUserDetailsServiceImpl detailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

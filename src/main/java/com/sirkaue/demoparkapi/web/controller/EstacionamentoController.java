@@ -21,7 +21,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -43,11 +42,14 @@ import static io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY;
 @RequestMapping("api/v1/estacionamentos")
 public class EstacionamentoController {
 
-    @Autowired
-    private EstacionamentoService estacionamentoService;
+    private final EstacionamentoService estacionamentoService;
 
-    @Autowired
-    private ClienteVagaService clienteVagaService;
+    private final ClienteVagaService clienteVagaService;
+
+    public EstacionamentoController(EstacionamentoService estacionamentoService, ClienteVagaService clienteVagaService) {
+        this.estacionamentoService = estacionamentoService;
+        this.clienteVagaService = clienteVagaService;
+    }
 
     @Operation(summary = "Operação de check-in", description = "Recurso para dar entrada de um veículo no estacionamento." +
             "Requisição exige um Bearer Token, Acesso restrito a Role='ADMIN'",

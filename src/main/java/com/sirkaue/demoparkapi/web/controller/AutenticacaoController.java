@@ -1,7 +1,7 @@
 package com.sirkaue.demoparkapi.web.controller;
 
 import com.sirkaue.demoparkapi.jwt.JwtToken;
-import com.sirkaue.demoparkapi.jwt.JwtUserDetailsService;
+import com.sirkaue.demoparkapi.jwt.JwtUserDetailsServiceImpl;
 import com.sirkaue.demoparkapi.web.dto.UsuarioLoginDto;
 import com.sirkaue.demoparkapi.web.dto.UsuarioResponseDto;
 import com.sirkaue.demoparkapi.web.exception.ErrorMessage;
@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,11 +31,14 @@ public class AutenticacaoController {
 
     private static final Logger log = LoggerFactory.getLogger(AutenticacaoController.class);
 
-    @Autowired
-    private JwtUserDetailsService detailsService;
+    private final JwtUserDetailsServiceImpl detailsService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+
+    public AutenticacaoController(JwtUserDetailsServiceImpl detailsService, AuthenticationManager authenticationManager) {
+        this.detailsService = detailsService;
+        this.authenticationManager = authenticationManager;
+    }
 
     @Operation(summary = "Autenticar na API", description = "Recurso de autenticação na API",
             responses = {
