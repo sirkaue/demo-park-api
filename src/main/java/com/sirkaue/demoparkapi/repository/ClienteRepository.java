@@ -11,6 +11,12 @@ import java.util.Optional;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
+    @Query("select (count(c) > 0) from Cliente c where c.cpf = :cpf")
+    boolean existsByCpf(String cpf);
+
+    @Query("select (count(c) > 0) from Cliente c where c.usuario.username = :username")
+    boolean existsByEmail(String username);
+
     @Query("SELECT c FROM Cliente c")
     Page<ClienteProjection> findAllPageable(Pageable pageable);
 
