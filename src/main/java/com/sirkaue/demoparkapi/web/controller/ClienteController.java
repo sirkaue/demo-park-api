@@ -60,7 +60,9 @@ public class ClienteController {
                                     schema = @Schema(implementation = ErrorMessage.class))),
                     @ApiResponse(
                             responseCode = "409",
-                            description = "Cliente CPF já possui cadastro no sistema",
+                            description = "Causas possiveis: <br/>" +
+                                    "- CPF do cliente já cadastrado no sistema; <br/>" +
+                                    "- E-mail do cliente já cadastrado no sistema;",
                             content = @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = ErrorMessage.class))),
                     @ApiResponse(
