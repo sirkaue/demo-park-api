@@ -10,7 +10,7 @@ public interface UsuarioService {
 
     Usuario buscarPorId(Long id);
 
-    Usuario editarSenha(Long id, String senhaAtual, String novaSenha, String confirmaSenha);
+    void editarSenha(Long id, String senhaAtual, String novaSenha, String confirmaSenha);
 
     List<Usuario> buscarTodos();
 
