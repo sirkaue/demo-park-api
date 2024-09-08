@@ -1,5 +1,6 @@
 package com.sirkaue.demoparkapi.service.impl;
 
+import com.sirkaue.demoparkapi.exception.RelatorioVazioException;
 import com.sirkaue.demoparkapi.service.JasperService;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -49,6 +50,12 @@ public class JasperServiceImpl implements JasperService {
             Resource resource = resourceLoader.getResource(JASPER_DIRETORIO.concat("estacionamentos.jasper"));
             InputStream stream = resource.getInputStream();
             JasperPrint print = JasperFillManager.fillReport(stream, params, dataSource.getConnection());
+
+            if (print.getPages().isEmpty()) {
+                log.warn("Jasper Reports ::: Relatório gerado está vazio, PDF não será gerado.");
+                throw new RelatorioVazioException("Relatório gerado está vazio, PDF não será gerado.");
+            }
+
             bytes = JasperExportManager.exportReportToPdf(print);
         } catch (IOException | JRException | SQLException e) {
             log.error("Jasper Reports ::: ", e.getCause());

@@ -68,6 +68,17 @@ public class ApiExceptionHandler {
                 .body(new ErrorMessage(request, HttpStatus.UNPROCESSABLE_ENTITY, "Campo(s) inválido(s)", result));
     }
 
+    @ExceptionHandler(RelatorioVazioException.class)
+    public ResponseEntity<ErrorMessage> handleRelatorioVazioException(RelatorioVazioException ex, HttpServletRequest request) {
+        ErrorMessage error = new ErrorMessage(
+                request, HttpStatus.INTERNAL_SERVER_ERROR, "Relatório vazio: " + ex.getMessage());
+        log.error("Relatório Vazio Error {} {} - ", error, ex.getMessage());
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(error);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorMessage> internalServerErrorException(Exception ex, HttpServletRequest request) {
         ErrorMessage error = new ErrorMessage(
