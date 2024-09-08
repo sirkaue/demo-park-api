@@ -245,6 +245,25 @@ public class EstacionamentoController {
         return ResponseEntity.ok(PageableMapper.toDto(projection));
     }
 
+    @Operation(summary = "Gerar relatório em PDF",
+            description = "Recurso para gerar um relatório em PDF. Requisição exige um Bearer Token. Acesso restrito a Role='CLIENTE'.",
+            security = @SecurityRequirement(name = "security"),
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Relatório gerado com sucesso",
+                            content = @Content(mediaType = "application/pdf")),
+                    @ApiResponse(
+                            responseCode = "403",
+                            description = "Recurso não permitido ao perfil de ADMIN",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorMessage.class))),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Erro interno do servidor",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = ErrorMessage.class)))
+            })
     @GetMapping("/relatorios")
     @PreAuthorize("hasRole('CLIENTE')")
     public ResponseEntity<Void> getRelatorio(HttpServletResponse response,
