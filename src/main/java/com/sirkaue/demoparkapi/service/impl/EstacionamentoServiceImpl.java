@@ -18,9 +18,7 @@ import java.time.LocalDateTime;
 public class EstacionamentoServiceImpl implements EstacionamentoService {
 
     private final ClienteVagaService clienteVagaService;
-
     private final ClienteService clienteService;
-
     private final VagaService vagaService;
 
     public EstacionamentoServiceImpl(
@@ -34,7 +32,7 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
 
     @Override
     @Transactional
-    public ClienteVaga checkIn(ClienteVaga clienteVaga) {
+    public void checkIn(ClienteVaga clienteVaga) {
         Cliente cliente = clienteService.buscarPorCpf(clienteVaga.getCliente().getCpf());
         clienteVaga.setCliente(cliente);
 
@@ -43,7 +41,7 @@ public class EstacionamentoServiceImpl implements EstacionamentoService {
         clienteVaga.setVaga(vaga);
         clienteVaga.setDataEntrada(LocalDateTime.now());
         clienteVaga.setRecibo(EstacionamentoUtils.gerarRecibo());
-        return clienteVagaService.salvar(clienteVaga);
+        clienteVagaService.salvar(clienteVaga);
     }
 
     @Override

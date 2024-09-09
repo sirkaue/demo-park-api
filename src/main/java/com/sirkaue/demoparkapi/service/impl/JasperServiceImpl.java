@@ -33,7 +33,7 @@ public class JasperServiceImpl implements JasperService {
         this.dataSource = dataSource;
     }
 
-    private Map<String, Object> params = new HashMap<>();
+    private final Map<String, Object> params = new HashMap<>();
     private static final String JASPER_DIRETORIO = "classpath:reports/";
 
     @Override

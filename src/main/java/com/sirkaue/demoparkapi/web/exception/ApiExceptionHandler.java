@@ -69,9 +69,9 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(RelatorioVazioException.class)
-    public ResponseEntity<ErrorMessage> handleRelatorioVazioException(RelatorioVazioException ex, HttpServletRequest request) {
+    public ResponseEntity<ErrorMessage> relatorioVazioException(RelatorioVazioException ex, HttpServletRequest request) {
         ErrorMessage error = new ErrorMessage(
-                request, HttpStatus.INTERNAL_SERVER_ERROR, "Relatório vazio: " + ex.getMessage());
+                request, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
         log.error("Relatório Vazio Error {} {} - ", error, ex.getMessage());
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)

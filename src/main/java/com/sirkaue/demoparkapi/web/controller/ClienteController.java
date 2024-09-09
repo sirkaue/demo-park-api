@@ -36,7 +36,6 @@ import static io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY;
 public class ClienteController {
 
     private final ClienteService clienteService;
-
     private final UsuarioService usuarioService;
 
     public ClienteController(ClienteService clienteService, UsuarioService usuarioService) {
