@@ -246,7 +246,8 @@ public class EstacionamentoController {
     }
 
     @Operation(summary = "Gerar relatório em PDF",
-            description = "Recurso para gerar um relatório em PDF. Requisição exige um Bearer Token. Acesso restrito a Role='CLIENTE'.",
+            description = "Recurso para gerar um relatório em PDF. Requisição exige um Bearer Token. " +
+                    "Acesso restrito a Role='CLIENTE'.",
             security = @SecurityRequirement(name = "security"),
             responses = {
                     @ApiResponse(
@@ -260,7 +261,9 @@ public class EstacionamentoController {
                                     schema = @Schema(implementation = ErrorMessage.class))),
                     @ApiResponse(
                             responseCode = "500",
-                            description = "Erro interno do servidor",
+                            description = "Causas possiveis: <br/>" +
+                                    "- Relatório vazio; <br/>" +
+                                    "- Erro interno do servidor;",
                             content = @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = ErrorMessage.class)))
             })
