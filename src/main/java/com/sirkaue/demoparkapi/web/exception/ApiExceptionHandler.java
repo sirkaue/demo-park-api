@@ -24,6 +24,27 @@ public class ApiExceptionHandler {
         this.messageSource = messageSource;
     }
 
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErrorMessage> entityNotFoundException(EntityNotFoundException ex, HttpServletRequest request) {
+        Object[] params = new Object[]{ex.getRecurso(), ex.getCodigo()};
+        String message = messageSource.getMessage("exception.entityNotFoundException", params, request.getLocale());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, message));
+    }
+
+    @ExceptionHandler(CodigoUniqueViolationException.class)
+    public ResponseEntity<ErrorMessage> codigoUniqueViolationException(CodigoUniqueViolationException ex, HttpServletRequest request) {
+        Object[] params = new Object[]{ex.getRecurso(), ex.getCodigo()};
+        String message = messageSource.getMessage("exception.codigoUniqueViolationException",
+                params, request.getLocale());
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.CONFLICT, message));
+    }
+
     @ExceptionHandler(PasswordInvalidException.class)
     public ResponseEntity<ErrorMessage> passwordInvalidException(RuntimeException ex, HttpServletRequest request) {
         log.error("Api Error - ", ex);
@@ -42,19 +63,16 @@ public class ApiExceptionHandler {
                 .body(new ErrorMessage(request, HttpStatus.FORBIDDEN, ex.getMessage()));
     }
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ErrorMessage> entityNotFoundException(RuntimeException ex, HttpServletRequest request) {
-        log.error("Api Error - ", ex);
+    @ExceptionHandler(VagaDisponivelException.class)
+    public ResponseEntity<ErrorMessage> vagaDisponivelException(RuntimeException ex, HttpServletRequest request) {
+        String message = messageSource.getMessage("exception.vagaDisponivelException", null, request.getLocale());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, ex.getMessage()));
+                .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, message));
     }
 
-    @ExceptionHandler({
-            UsernameUniqueViolationException.class, CpfUniqueViolationException.class,
-            CodigoUniqueViolationException.class
-    })
+    @ExceptionHandler({UsernameUniqueViolationException.class, CpfUniqueViolationException.class})
     public ResponseEntity<ErrorMessage> uniqueViolationException(RuntimeException ex, HttpServletRequest request) {
         log.error("Api Error - ", ex);
         return ResponseEntity

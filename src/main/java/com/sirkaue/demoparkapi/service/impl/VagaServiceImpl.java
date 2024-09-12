@@ -3,6 +3,7 @@ package com.sirkaue.demoparkapi.service.impl;
 import com.sirkaue.demoparkapi.entity.Vaga;
 import com.sirkaue.demoparkapi.exception.CodigoUniqueViolationException;
 import com.sirkaue.demoparkapi.exception.EntityNotFoundException;
+import com.sirkaue.demoparkapi.exception.VagaDisponivelException;
 import com.sirkaue.demoparkapi.repository.VagaRepository;
 import com.sirkaue.demoparkapi.service.VagaService;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -26,8 +27,7 @@ public class VagaServiceImpl implements VagaService {
         try {
             return vagaRepository.save(vaga);
         } catch (DataIntegrityViolationException e) {
-            throw new CodigoUniqueViolationException(
-                    String.format("Vaga com códido '%s' já cadastrada", vaga.getCodigo()));
+            throw new CodigoUniqueViolationException("Vaga", vaga.getCodigo());
         }
     }
 
@@ -35,14 +35,12 @@ public class VagaServiceImpl implements VagaService {
     @Transactional(readOnly = true)
     public Vaga buscarPorCodigo(String codigo) {
         return vagaRepository.findByCodigo(codigo).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Vaga com código '%s' não foi encontrado", codigo)));
+                () -> new EntityNotFoundException("Vaga", codigo));
     }
 
     @Override
     @Transactional(readOnly = true)
     public Vaga buscarPorVagaLivre() {
-        return vagaRepository.findFirstByStatus(LIVRE).orElseThrow(
-                () -> new EntityNotFoundException("Nenhuma vaga livre foi encontrada")
-        );
+        return vagaRepository.findFirstByStatus(LIVRE).orElseThrow(VagaDisponivelException::new);
     }
 }
