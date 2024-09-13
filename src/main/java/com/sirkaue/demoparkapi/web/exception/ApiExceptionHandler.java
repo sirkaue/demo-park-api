@@ -26,7 +26,7 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErrorMessage> entityNotFoundException(EntityNotFoundException ex, HttpServletRequest request) {
-        Object[] params = new Object[]{ex.getRecurso(), ex.getCodigo()};
+        Object[] params = new Object[]{ex.getCodigo()};
         String message = messageSource.getMessage("exception.entityNotFoundException", params, request.getLocale());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
@@ -36,7 +36,7 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(CodigoUniqueViolationException.class)
     public ResponseEntity<ErrorMessage> codigoUniqueViolationException(CodigoUniqueViolationException ex, HttpServletRequest request) {
-        Object[] params = new Object[]{ex.getRecurso(), ex.getCodigo()};
+        Object[] params = new Object[]{ex.getCodigo()};
         String message = messageSource.getMessage("exception.codigoUniqueViolationException",
                 params, request.getLocale());
         return ResponseEntity

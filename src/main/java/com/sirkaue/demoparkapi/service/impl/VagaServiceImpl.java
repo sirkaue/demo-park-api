@@ -27,7 +27,7 @@ public class VagaServiceImpl implements VagaService {
         try {
             return vagaRepository.save(vaga);
         } catch (DataIntegrityViolationException e) {
-            throw new CodigoUniqueViolationException("Vaga", vaga.getCodigo());
+            throw new CodigoUniqueViolationException(vaga.getCodigo());
         }
     }
 
@@ -35,7 +35,7 @@ public class VagaServiceImpl implements VagaService {
     @Transactional(readOnly = true)
     public Vaga buscarPorCodigo(String codigo) {
         return vagaRepository.findByCodigo(codigo).orElseThrow(
-                () -> new EntityNotFoundException("Vaga", codigo));
+                () -> new EntityNotFoundException(codigo));
     }
 
     @Override
