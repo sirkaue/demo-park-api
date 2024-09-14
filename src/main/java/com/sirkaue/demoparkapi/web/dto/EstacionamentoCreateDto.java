@@ -7,23 +7,23 @@ import org.hibernate.validator.constraints.br.CPF;
 
 public class EstacionamentoCreateDto {
 
-    @NotBlank
-    @Size(min = 8, max = 8)
-    @Pattern(regexp = "[A-Z]{3}-[0-9]{4}", message = "A placa do veículo deve seguir o padrão 'AAA-0000'")
+    @NotBlank(message = "{NotBlank.estacionamentoCreateDto.placa}")
+    @Size(message = "{Size.estacionamentoCreateDto.placa}", min = 8, max = 8)
+    @Pattern(regexp = "[A-Z]{3}-[0-9]{4}", message = "{Pattern.estacionamentoCreateDto.placa}")
     private String placa;
 
-    @NotBlank
+    @NotBlank(message = "{NotBlank.estacionamentoCreateDto.marca}")
     private String marca;
 
-    @NotBlank
+    @NotBlank(message = "{NotBlank.estacionamentoCreateDto.modelo}")
     private String modelo;
 
-    @NotBlank
+    @NotBlank(message = "{NotBlank.estacionamentoCreateDto.cor}")
     private String cor;
 
-    @NotBlank
-    @Size(min = 11, max = 11)
-    @CPF
+    @NotBlank(message = "{NotBlank.estacionamentoCreateDto.clienteCpf}")
+    @Size(message = "{Size.estacionamentoCreateDto.clienteCpf}", min = 11, max = 11)
+    @CPF(message = "{CPF.estacionamentoCreateDto.clienteCpf}")
     private String clienteCpf;
 
     public EstacionamentoCreateDto() {

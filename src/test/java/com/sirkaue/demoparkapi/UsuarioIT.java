@@ -82,7 +82,7 @@ public class UsuarioIT {
     }
 
     @Test
-    public void createUsuario_ComPasswoedInvalido_RetornarErrorMessageComStatus422() {
+    public void createUsuario_ComPasswordInvalido_RetornarErrorMessageComStatus422() {
         ErrorMessage responseBody = testClient
                 .post()
                 .uri("/api/v1/usuarios")

@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +56,7 @@ public class AutenticacaoController {
                                     schema = @Schema(implementation = ErrorMessage.class)))
             })
     @PostMapping("/auth")
-    public ResponseEntity<?> autenticar(@RequestBody @Valid UsuarioLoginDto dto, HttpServletRequest request) {
+    public ResponseEntity<?> autenticar(@RequestBody @Valid UsuarioLoginDto dto) {
 
         log.info("Processo de autenticação pelo login {}", dto.getUsername());
 

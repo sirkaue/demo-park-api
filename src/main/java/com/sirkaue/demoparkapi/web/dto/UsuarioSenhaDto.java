@@ -5,16 +5,16 @@ import jakarta.validation.constraints.Size;
 
 public class UsuarioSenhaDto {
 
-    @NotBlank
-    @Size(min = 6, max = 6)
+    @NotBlank(message = "{NotBlank.usuarioSenhaDto.senhaAtual}")
+    @Size(message = "{Size.usuarioSenhaDto.senhaAtual}", min = 6, max = 6)
     private String senhaAtual;
 
-    @NotBlank
-    @Size(min = 6, max = 6)
+    @NotBlank(message = "{NotBlank.usuarioSenhaDto.novaSenha}")
+    @Size(message = "{Size.usuarioSenhaDto.novaSenha}", min = 6, max = 6)
     private String novaSenha;
 
-    @NotBlank
-    @Size(min = 6, max = 6)
+    @NotBlank(message = "{NotBlank.usuarioSenhaDto.confirmaSenha}")
+    @Size(message = "{Size.usuarioSenhaDto.confirmaSenha}", min = 6, max = 6)
     private String confirmaSenha;
 
     public UsuarioSenhaDto() {

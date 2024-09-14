@@ -6,12 +6,12 @@ import org.hibernate.validator.constraints.br.CPF;
 
 public class ClienteCreateDto {
 
-    @NotBlank
-    @Size(min = 5, max = 100)
+    @NotBlank(message = "{NotBlank.clienteCreateDto.nome}")
+    @Size(message = "{Size.clienteCreateDto.nome}", min = 5, max = 100)
     private String nome;
 
-    @CPF
-    @Size(min = 11, max = 11)
+    @CPF(message = "{CPF.clienteCreateDto.cpf}")
+    @Size(message = "{Size.clienteCreateDto.cpf}", min = 11, max = 11)
     private String cpf;
 
     public ClienteCreateDto() {

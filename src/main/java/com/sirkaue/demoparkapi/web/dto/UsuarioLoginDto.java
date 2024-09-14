@@ -6,12 +6,12 @@ import jakarta.validation.constraints.Size;
 
 public class UsuarioLoginDto {
 
-    @NotBlank
-    @Email(message = "formato do e-mail inválido", regexp = "^[a-z0-9.+-]+@[a-z0-9.-]+\\.[a-z]{2,}$")
+    @NotBlank(message = "{NotBlank.usuarioLoginDto.username}")
+    @Email(message = "{Email.usuarioLoginDto.username}", regexp = "^[a-z0-9.+-]+@[a-z0-9.-]+\\.[a-z]{2,}$")
     private String username;
 
-    @NotBlank
-    @Size(min = 6, max = 6)
+    @NotBlank(message = "{NotBlank.usuarioLoginDto.password}")
+    @Size(message = "{Size.usuarioLoginDto.password}", min = 6, max = 6)
     private String password;
 
     public UsuarioLoginDto() {
