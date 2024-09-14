@@ -2,6 +2,7 @@ package com.sirkaue.demoparkapi.service.impl;
 
 import com.sirkaue.demoparkapi.entity.ClienteVaga;
 import com.sirkaue.demoparkapi.exception.EntityNotFoundException;
+import com.sirkaue.demoparkapi.exception.ReciboNotFoundException;
 import com.sirkaue.demoparkapi.repository.ClienteVagaRepository;
 import com.sirkaue.demoparkapi.repository.projection.ClienteVagaProjection;
 import com.sirkaue.demoparkapi.service.ClienteVagaService;
@@ -29,9 +30,7 @@ public class ClienteVagaServiceImpl implements ClienteVagaService {
     @Transactional(readOnly = true)
     public ClienteVaga buscarPorRecibo(String recibo) {
         return repository.findByReciboAndDataSaidaIsNull(recibo).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Recibo '%s' não encontrado no sistema ou " +
-                        "check-out já realizado", recibo))
-        );
+                () -> new ReciboNotFoundException(recibo));
     }
 
     @Override

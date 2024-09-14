@@ -34,6 +34,16 @@ public class ApiExceptionHandler {
                 .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, message));
     }
 
+    @ExceptionHandler(ReciboNotFoundException.class)
+    public ResponseEntity<ErrorMessage> reciboEntityNotFoundException(ReciboNotFoundException ex, HttpServletRequest request) {
+        Object[] params = new Object[]{ex.getCodigo()};
+        String message = messageSource.getMessage("exception.reciboEntityNotFoundException", params, request.getLocale());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, message));
+    }
+
     @ExceptionHandler(CodigoUniqueViolationException.class)
     public ResponseEntity<ErrorMessage> codigoUniqueViolationException(CodigoUniqueViolationException ex, HttpServletRequest request) {
         Object[] params = new Object[]{ex.getCodigo()};
