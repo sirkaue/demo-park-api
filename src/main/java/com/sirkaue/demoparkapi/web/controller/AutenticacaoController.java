@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -72,9 +71,7 @@ public class AutenticacaoController {
             return ResponseEntity.ok(token);
         } catch (AuthenticationException e) {
             log.warn("Bad Credentials from username {}", dto.getUsername());
+            throw e;
         }
-        return ResponseEntity
-                .badRequest()
-                .body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, "Credenciais Inválidas."));
     }
 }
