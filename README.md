@@ -15,6 +15,7 @@ A API também inclui funcionalidades para geração de relatórios em PDF utiliz
 - **Autenticação e Autorização**: Controle de acesso às funcionalidades da API, garantindo que apenas usuários autenticados e autorizados possam realizar determinadas operações.
 - **Documentação e Testes com Swagger**: Interface interativa para explorar e testar a API diretamente pelo navegador.
 - **Testes End-to-End**: Validação da funcionalidade completa da API, desde o cadastro até a geração de relatórios e controle de acesso, garantindo que todos os fluxos funcionem conforme o esperado.
+- **Internacionalização (i18n)**: Suporte para múltiplos idiomas, permitindo a personalização das mensagens da API de acordo com a configuração de localidade do usuário. Idiomas suportados: Português, Inglês e Espanhol.
 
 ## Tecnologias Utilizadas
 
