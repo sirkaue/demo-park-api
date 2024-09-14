@@ -1,9 +1,10 @@
 package com.sirkaue.demoparkapi.service.impl;
 
 import com.sirkaue.demoparkapi.entity.Usuario;
-import com.sirkaue.demoparkapi.exception.EntityNotFoundException;
 import com.sirkaue.demoparkapi.exception.PasswordInvalidException;
+import com.sirkaue.demoparkapi.exception.UsernameNotFoundException;
 import com.sirkaue.demoparkapi.exception.UsernameUniqueViolationException;
+import com.sirkaue.demoparkapi.exception.UsuarioNotFoundException;
 import com.sirkaue.demoparkapi.repository.UsuarioRepository;
 import com.sirkaue.demoparkapi.service.UsuarioService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,31 +31,30 @@ public class UsuarioServiceImpl implements UsuarioService {
             usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
             return usuarioRepository.save(usuario);
         } catch (org.springframework.dao.DataIntegrityViolationException ex) {
-            throw new UsernameUniqueViolationException(String.format("Username {%s} já cadastrado", usuario.getUsername()));
+            throw new UsernameUniqueViolationException("Username", usuario.getUsername());
         }
     }
 
     @Override
     @Transactional(readOnly = true)
     public Usuario buscarPorId(Long id) {
-        return usuarioRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Usuário id=%s não encontrado.", id)));
+        return usuarioRepository.findById(id).orElseThrow(() -> new UsuarioNotFoundException(id));
     }
 
     @Override
     @Transactional
     public void editarSenha(Long id, String senhaAtual, String novaSenha, String confirmaSenha) {
         if (!novaSenha.equals(confirmaSenha)) {
-            throw new PasswordInvalidException("Nova senha não confere com confirmação senha.");
+            throw new PasswordInvalidException("exception.passwordInvalid.confirmation");
         }
 
         Usuario user = buscarPorId(id);
         if (!passwordEncoder.matches(senhaAtual, user.getPassword())) {
-            throw new PasswordInvalidException("Sua senha não confere.");
+            throw new PasswordInvalidException("exception.passwordInvalid.current");
         }
 
         if (passwordEncoder.matches(novaSenha, user.getPassword())) {
-            throw new PasswordInvalidException("A nova senha não pode ser a mesma que a senha atual.");
+            throw new PasswordInvalidException("exception.passwordInvalid.same");
         }
 
         user.setPassword(passwordEncoder.encode(novaSenha));
@@ -70,8 +70,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional(readOnly = true)
     public Usuario buscarPorUsername(String username) {
         return usuarioRepository.findByUsername(username).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Usuário com username='%s' não encontrado", username))
-        );
+                () -> new UsernameNotFoundException(username));
     }
 
     @Override

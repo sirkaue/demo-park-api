@@ -34,6 +34,26 @@ public class ApiExceptionHandler {
                 .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, message));
     }
 
+    @ExceptionHandler(UsuarioNotFoundException.class)
+    public ResponseEntity<ErrorMessage> usuarioNotFoundException(UsuarioNotFoundException ex, HttpServletRequest request) {
+        Object[] params = new Object[]{ex.getCodigo()};
+        String message = messageSource.getMessage("exception.usuarioNotFoundException", params, request.getLocale());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, message));
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<ErrorMessage> usernameNotFoundException(UsernameNotFoundException ex, HttpServletRequest request) {
+        Object[] params = new Object[]{ex.getCodigo()};
+        String message = messageSource.getMessage("exception.usuarioUsernameNotFoundException", params, request.getLocale());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, message));
+    }
+
     @ExceptionHandler(ReciboNotFoundException.class)
     public ResponseEntity<ErrorMessage> reciboEntityNotFoundException(ReciboNotFoundException ex, HttpServletRequest request) {
         Object[] params = new Object[]{ex.getCodigo()};
@@ -56,12 +76,13 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(PasswordInvalidException.class)
-    public ResponseEntity<ErrorMessage> passwordInvalidException(RuntimeException ex, HttpServletRequest request) {
-        log.error("Api Error - ", ex);
+    public ResponseEntity<ErrorMessage> passwordInvalidException(PasswordInvalidException ex, HttpServletRequest request) {
+        String messageKey = ex.getMessage();
+        String message = messageSource.getMessage(messageKey, null, request.getLocale());
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, ex.getMessage()));
+                .body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, message));
     }
 
     @ExceptionHandler(AccessDeniedException.class)
@@ -104,8 +125,15 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(UsernameUniqueViolationException.class)
     public ResponseEntity<ErrorMessage> usernameUniqueViolationException(UsernameUniqueViolationException ex, HttpServletRequest request) {
-        Object[] params = new Object[]{ex.getCodigo()};
-        String message = messageSource.getMessage("exception.usernameUniqueViolationException", params, request.getLocale());
+        String message;
+        Object[] params;
+
+        if (ex.getRecurso() == null || ex.getRecurso().isEmpty()) {
+            params = new Object[]{ex.getCodigo()};
+            message = messageSource.getMessage("exception.usernameUniqueViolationException", params, request.getLocale());
+        }
+        params = new Object[]{ex.getRecurso(), ex.getCodigo()};
+        message = messageSource.getMessage("exception.usuarioUsernameUniqueViolationException", params, request.getLocale());
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .contentType(MediaType.APPLICATION_JSON)
