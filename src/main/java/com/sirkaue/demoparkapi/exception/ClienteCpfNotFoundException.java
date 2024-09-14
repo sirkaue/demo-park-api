@@ -1,9 +1,14 @@
 package com.sirkaue.demoparkapi.exception;
 
-public class CpfUniqueViolationException extends RuntimeException {
+public class ClienteCpfNotFoundException extends RuntimeException {
 
     private final String recurso;
     private final String codigo;
+
+    public ClienteCpfNotFoundException(String recurso, String codigo) {
+        this.recurso = recurso;
+        this.codigo = codigo;
+    }
 
     public String getRecurso() {
         return recurso;
@@ -13,8 +18,4 @@ public class CpfUniqueViolationException extends RuntimeException {
         return codigo;
     }
 
-    public CpfUniqueViolationException(String recurso, String codigo) {
-        this.recurso = recurso;
-        this.codigo = codigo;
-    }
 }

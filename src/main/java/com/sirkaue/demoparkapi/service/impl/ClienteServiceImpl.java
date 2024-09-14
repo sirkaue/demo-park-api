@@ -1,9 +1,7 @@
 package com.sirkaue.demoparkapi.service.impl;
 
 import com.sirkaue.demoparkapi.entity.Cliente;
-import com.sirkaue.demoparkapi.exception.CpfUniqueViolationException;
-import com.sirkaue.demoparkapi.exception.EntityNotFoundException;
-import com.sirkaue.demoparkapi.exception.UsernameUniqueViolationException;
+import com.sirkaue.demoparkapi.exception.*;
 import com.sirkaue.demoparkapi.repository.ClienteRepository;
 import com.sirkaue.demoparkapi.repository.projection.ClienteProjection;
 import com.sirkaue.demoparkapi.service.ClienteService;
@@ -25,14 +23,12 @@ public class ClienteServiceImpl implements ClienteService {
     @Transactional
     public Cliente salvar(Cliente cliente) {
         if (clienteRepository.existsByCpf(cliente.getCpf())) {
-            throw new CpfUniqueViolationException(String.format("CPF '%s' não pode ser cadastrado, " +
-                    "já existe no sistema.", cliente.getCpf()));
+            throw new CpfUniqueViolationException("CPF", cliente.getCpf());
         }
 
         if (clienteRepository.existsByEmail(cliente.getUsuario().getUsername())) {
             String email = cliente.getUsuario().getUsername();
-            throw new UsernameUniqueViolationException(String.format("Não foi possível realizar o cadastro, " +
-                    "já existe um registro no sistema com o e-mail '%s'.", email));
+            throw new UsernameUniqueViolationException(email);
         }
         return clienteRepository.save(cliente);
     }
@@ -41,7 +37,7 @@ public class ClienteServiceImpl implements ClienteService {
     @Transactional(readOnly = true)
     public Cliente buscarPorId(Long id) {
         return clienteRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Cliente id=%s não encontrado no sistema.", id)));
+                () -> new ClienteNotFoundException(id));
     }
 
     @Override
@@ -60,7 +56,6 @@ public class ClienteServiceImpl implements ClienteService {
     @Transactional(readOnly = true)
     public Cliente buscarPorCpf(String cpf) {
         return clienteRepository.findByCpf(cpf).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Cliente com CPF '%s' não encontrado", cpf))
-        );
+                () -> new ClienteCpfNotFoundException("CPF", cpf));
     }
 }

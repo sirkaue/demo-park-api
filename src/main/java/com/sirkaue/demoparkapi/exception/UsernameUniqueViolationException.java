@@ -1,7 +1,14 @@
 package com.sirkaue.demoparkapi.exception;
 
 public class UsernameUniqueViolationException extends RuntimeException {
-    public UsernameUniqueViolationException(String message) {
-        super(message);
+
+    private final String codigo;
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public UsernameUniqueViolationException(String codigo) {
+        this.codigo = codigo;
     }
 }
