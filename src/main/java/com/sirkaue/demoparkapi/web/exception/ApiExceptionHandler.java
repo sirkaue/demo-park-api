@@ -173,17 +173,6 @@ public class ApiExceptionHandler {
                 .body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, message));
     }
 
-    @ExceptionHandler(RelatorioVazioException.class)
-    public ResponseEntity<ErrorMessage> relatorioVazioException(RelatorioVazioException ex, HttpServletRequest request) {
-        ErrorMessage error = new ErrorMessage(
-                request, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
-        log.error("Relatório Vazio Error {} {} - ", error, ex.getMessage());
-        return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(error);
-    }
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorMessage> internalServerErrorException(Exception ex, HttpServletRequest request) {
         ErrorMessage error = new ErrorMessage(
