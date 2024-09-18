@@ -7,6 +7,7 @@ import com.sirkaue.demoparkapi.exception.UsernameUniqueViolationException;
 import com.sirkaue.demoparkapi.exception.UsuarioNotFoundException;
 import com.sirkaue.demoparkapi.repository.UsuarioRepository;
 import com.sirkaue.demoparkapi.service.UsuarioService;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,8 +31,8 @@ public class UsuarioServiceImpl implements UsuarioService {
         try {
             usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
             return usuarioRepository.save(usuario);
-        } catch (org.springframework.dao.DataIntegrityViolationException ex) {
-            throw new UsernameUniqueViolationException("Username", usuario.getUsername());
+        } catch (DataIntegrityViolationException ex) {
+            throw new UsernameUniqueViolationException("e-mail", usuario.getUsername());
         }
     }
 
@@ -45,16 +46,16 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public void editarSenha(Long id, String senhaAtual, String novaSenha, String confirmaSenha) {
         if (!novaSenha.equals(confirmaSenha)) {
-            throw new PasswordInvalidException("exception.passwordInvalid.confirmation");
+            throw new PasswordInvalidException("exception.PasswordInvalidException.confirmation");
         }
 
         Usuario user = buscarPorId(id);
         if (!passwordEncoder.matches(senhaAtual, user.getPassword())) {
-            throw new PasswordInvalidException("exception.passwordInvalid.current");
+            throw new PasswordInvalidException("exception.PasswordInvalidException.current");
         }
 
         if (passwordEncoder.matches(novaSenha, user.getPassword())) {
-            throw new PasswordInvalidException("exception.passwordInvalid.same");
+            throw new PasswordInvalidException("exception.PasswordInvalidException.same");
         }
 
         user.setPassword(passwordEncoder.encode(novaSenha));

@@ -25,10 +25,10 @@ public class ApiExceptionHandler {
         this.messageSource = messageSource;
     }
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ErrorMessage> entityNotFoundException(EntityNotFoundException ex, HttpServletRequest request) {
+    @ExceptionHandler(VagaNotFoundException.class)
+    public ResponseEntity<ErrorMessage> vagaNotFoundException(VagaNotFoundException ex, HttpServletRequest request) {
         Object[] params = new Object[]{ex.getCodigo()};
-        String message = messageSource.getMessage("exception.entityNotFoundException", params, request.getLocale());
+        String message = messageSource.getMessage("exception.VagaNotFoundException", params, request.getLocale());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -38,7 +38,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler(UsuarioNotFoundException.class)
     public ResponseEntity<ErrorMessage> usuarioNotFoundException(UsuarioNotFoundException ex, HttpServletRequest request) {
         Object[] params = new Object[]{ex.getCodigo()};
-        String message = messageSource.getMessage("exception.usuarioNotFoundException", params, request.getLocale());
+        String message = messageSource.getMessage("exception.UsuarioNotFoundException", params, request.getLocale());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -48,7 +48,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ErrorMessage> usernameNotFoundException(UsernameNotFoundException ex, HttpServletRequest request) {
         Object[] params = new Object[]{ex.getCodigo()};
-        String message = messageSource.getMessage("exception.usuarioUsernameNotFoundException", params, request.getLocale());
+        String message = messageSource.getMessage("exception.UsernameNotFoundException", params, request.getLocale());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -58,7 +58,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler(ReciboNotFoundException.class)
     public ResponseEntity<ErrorMessage> reciboEntityNotFoundException(ReciboNotFoundException ex, HttpServletRequest request) {
         Object[] params = new Object[]{ex.getCodigo()};
-        String message = messageSource.getMessage("exception.reciboEntityNotFoundException", params, request.getLocale());
+        String message = messageSource.getMessage("exception.ReciboEntityNotFoundException", params, request.getLocale());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -68,7 +68,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler(CodigoUniqueViolationException.class)
     public ResponseEntity<ErrorMessage> codigoUniqueViolationException(CodigoUniqueViolationException ex, HttpServletRequest request) {
         Object[] params = new Object[]{ex.getCodigo()};
-        String message = messageSource.getMessage("exception.codigoUniqueViolationException",
+        String message = messageSource.getMessage("exception.CodigoUniqueViolationException",
                 params, request.getLocale());
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
@@ -95,9 +95,9 @@ public class ApiExceptionHandler {
                 .body(new ErrorMessage(request, HttpStatus.FORBIDDEN, ex.getMessage()));
     }
 
-    @ExceptionHandler(VagaDisponivelException.class)
-    public ResponseEntity<ErrorMessage> vagaDisponivelException(RuntimeException ex, HttpServletRequest request) {
-        String message = messageSource.getMessage("exception.vagaDisponivelException", null, request.getLocale());
+    @ExceptionHandler(VagaIndisponivelException.class)
+    public ResponseEntity<ErrorMessage> vagaDisponivelException(HttpServletRequest request) {
+        String message = messageSource.getMessage("exception.VagaIndisponivelException", null, request.getLocale());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -107,17 +107,27 @@ public class ApiExceptionHandler {
     @ExceptionHandler(ClienteNotFoundException.class)
     public ResponseEntity<ErrorMessage> clienteNotFoundException(ClienteNotFoundException ex, HttpServletRequest request) {
         Object[] params = new Object[]{ex.getCodigo()};
-        String message = messageSource.getMessage("exception.clienteNotFoundException", params, request.getLocale());
+        String message = messageSource.getMessage("exception.ClienteNotFoundException", params, request.getLocale());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new ErrorMessage(request, HttpStatus.NOT_FOUND, message));
     }
 
+    @ExceptionHandler(CpfUniqueViolationException.class)
+    public ResponseEntity<ErrorMessage> cpfUniqueViolationException(CpfUniqueViolationException ex, HttpServletRequest request) {
+        Object[] params = new Object[]{ex.getRecurso(), ex.getCodigo()};
+        String message = messageSource.getMessage("exception.CpfUniqueViolationException", params, request.getLocale());
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.CONFLICT, message));
+    }
+
     @ExceptionHandler(ClienteCpfNotFoundException.class)
     public ResponseEntity<ErrorMessage> clienteCpfNotFoundException(ClienteCpfNotFoundException ex, HttpServletRequest request) {
         Object[] params = new Object[]{ex.getRecurso(), ex.getCodigo()};
-        String message = messageSource.getMessage("exception.clienteCpfNotFoundException", params, request.getLocale());
+        String message = messageSource.getMessage("exception.ClienteCpfNotFoundException", params, request.getLocale());
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -131,20 +141,10 @@ public class ApiExceptionHandler {
 
         if (ex.getRecurso() == null || ex.getRecurso().isEmpty()) {
             params = new Object[]{ex.getCodigo()};
-            message = messageSource.getMessage("exception.usernameUniqueViolationException", params, request.getLocale());
+            message = messageSource.getMessage("exception.UsernameUniqueViolationException.alternative", params, request.getLocale());
         }
         params = new Object[]{ex.getRecurso(), ex.getCodigo()};
-        message = messageSource.getMessage("exception.usuarioUsernameUniqueViolationException", params, request.getLocale());
-        return ResponseEntity
-                .status(HttpStatus.CONFLICT)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(new ErrorMessage(request, HttpStatus.CONFLICT, message));
-    }
-
-    @ExceptionHandler(CpfUniqueViolationException.class)
-    public ResponseEntity<ErrorMessage> cpfUniqueViolationException(CpfUniqueViolationException ex, HttpServletRequest request) {
-        Object[] params = new Object[]{ex.getRecurso(), ex.getCodigo()};
-        String message = messageSource.getMessage("exception.cpfUniqueViolationException", params, request.getLocale());
+        message = messageSource.getMessage("exception.UsernameUniqueViolationException", params, request.getLocale());
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -166,7 +166,7 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(AuthenticationException.class)
-    public ResponseEntity<ErrorMessage> handleAuthenticationException(AuthenticationException ex, HttpServletRequest request) {
+    public ResponseEntity<ErrorMessage> authenticationException(HttpServletRequest request) {
         String message = messageSource.getMessage("message.invalid.credential", null, request.getLocale());
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)

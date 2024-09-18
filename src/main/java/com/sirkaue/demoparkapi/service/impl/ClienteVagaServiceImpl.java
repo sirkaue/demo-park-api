@@ -1,7 +1,6 @@
 package com.sirkaue.demoparkapi.service.impl;
 
 import com.sirkaue.demoparkapi.entity.ClienteVaga;
-import com.sirkaue.demoparkapi.exception.EntityNotFoundException;
 import com.sirkaue.demoparkapi.exception.ReciboNotFoundException;
 import com.sirkaue.demoparkapi.repository.ClienteVagaRepository;
 import com.sirkaue.demoparkapi.repository.projection.ClienteVagaProjection;

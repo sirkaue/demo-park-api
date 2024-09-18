@@ -2,8 +2,8 @@ package com.sirkaue.demoparkapi.service.impl;
 
 import com.sirkaue.demoparkapi.entity.Vaga;
 import com.sirkaue.demoparkapi.exception.CodigoUniqueViolationException;
-import com.sirkaue.demoparkapi.exception.EntityNotFoundException;
-import com.sirkaue.demoparkapi.exception.VagaDisponivelException;
+import com.sirkaue.demoparkapi.exception.VagaNotFoundException;
+import com.sirkaue.demoparkapi.exception.VagaIndisponivelException;
 import com.sirkaue.demoparkapi.repository.VagaRepository;
 import com.sirkaue.demoparkapi.service.VagaService;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -35,12 +35,12 @@ public class VagaServiceImpl implements VagaService {
     @Transactional(readOnly = true)
     public Vaga buscarPorCodigo(String codigo) {
         return vagaRepository.findByCodigo(codigo).orElseThrow(
-                () -> new EntityNotFoundException(codigo));
+                () -> new VagaNotFoundException(codigo));
     }
 
     @Override
     @Transactional(readOnly = true)
     public Vaga buscarPorVagaLivre() {
-        return vagaRepository.findFirstByStatus(LIVRE).orElseThrow(VagaDisponivelException::new);
+        return vagaRepository.findFirstByStatus(LIVRE).orElseThrow(VagaIndisponivelException::new);
     }
 }

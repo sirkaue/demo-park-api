@@ -1,6 +1,6 @@
 package com.sirkaue.demoparkapi.exception;
 
-public class EntityNotFoundException extends RuntimeException {
+public class VagaNotFoundException extends RuntimeException {
 
     private final String codigo;
 
@@ -8,7 +8,7 @@ public class EntityNotFoundException extends RuntimeException {
         return codigo;
     }
 
-    public EntityNotFoundException(String codigo) {
+    public VagaNotFoundException(String codigo) {
         this.codigo = codigo;
     }
 }
