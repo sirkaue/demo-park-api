@@ -28,7 +28,7 @@ public class ClienteServiceImpl implements ClienteService {
 
         if (clienteRepository.existsByEmail(cliente.getUsuario().getUsername())) {
             String email = cliente.getUsuario().getUsername();
-            throw new UsernameUniqueViolationException(email);
+            throw new UsernameUniqueViolationException("e-mail", email);
         }
         return clienteRepository.save(cliente);
     }
