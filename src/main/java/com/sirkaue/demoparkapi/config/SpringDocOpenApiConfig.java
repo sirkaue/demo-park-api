@@ -25,7 +25,7 @@ public class SpringDocOpenApiConfig {
                                 .url("https://www.apache.org/licenses/LICENSE-2.0"))
                         .contact(new Contact()
                                 .name("Kauê Lima")
-                                .email("kaue@email.com")));
+                                .email("kauekdslopes@gmail.com")));
     }
 
     private SecurityScheme securityScheme() {
