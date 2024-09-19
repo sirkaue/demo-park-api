@@ -38,4 +38,4 @@ A aplicação segue o **padrão de arquitetura em camadas**, onde cada camada te
 ## Como Executar o Projeto
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/demo-park-api.git
+   git clone https://github.com/sirkaue/demo-park-api.git
