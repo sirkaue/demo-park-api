@@ -1,13 +1,11 @@
 # Demo Park API
 
 ## Descrição
+O **Demo Park API** é uma aplicação desenvolvida em **Java 17** usando **Spring Boot** para o gerenciamento de um estacionamento. A API oferece operações de CRUD (Create, Read, Update, Delete) para gerenciar os dados dos veículos e usuários, com exceção da operação de deleção, priorizando a integridade e segurança dos dados.
 
-O **Demo Park API** é uma aplicação desenvolvida em Java 17 usando Spring Boot para o gerenciamento de um estacionamento. A API oferece operações de CRUD (Create, Read, Update, Delete) para gerenciar os dados dos veículos e usuários, com exceção da operação de deleção, priorizando a integridade e segurança dos dados.
-
-A API também inclui funcionalidades para geração de relatórios em PDF utilizando o **JasperSoft Studio** e está documentada com **Swagger** para facilitar o uso e teste dos endpoints. Além disso, testes end-to-end foram realizados para garantir a integridade e funcionalidade completa da aplicação.
+A API também inclui funcionalidades para geração de relatórios em **PDF** utilizando o **JasperSoft Studio** e está documentada com **Swagger** para facilitar o uso e teste dos endpoints. Além disso, testes **end-to-end** foram realizados para garantir a integridade e funcionalidade completa da aplicação.
 
 ## Funcionalidades
-
 - **Cadastro de veículos e usuários**: Permite a criação de novos registros no sistema.
 - **Consulta de registros**: Recuperação de informações de veículos e usuários cadastrados.
 - **Atualização de dados**: Modificação dos registros existentes no sistema.
@@ -18,7 +16,6 @@ A API também inclui funcionalidades para geração de relatórios em PDF utiliz
 - **Internacionalização (i18n)**: Suporte para múltiplos idiomas, permitindo a personalização das mensagens da API de acordo com a configuração de localidade do usuário. Idiomas suportados: Português, Inglês e Espanhol.
 
 ## Tecnologias Utilizadas
-
 - **Java 17**: Linguagem de programação utilizada no desenvolvimento da aplicação.
 - **Spring Boot**: Framework para facilitar a criação da aplicação, com recursos de injeção de dependência, configuração automática, entre outros.
 - **Spring Security**: Implementação de autenticação e autorização para proteger a aplicação.
@@ -29,18 +26,16 @@ A API também inclui funcionalidades para geração de relatórios em PDF utiliz
 - **Swagger**: Documentação e testes interativos da API.
 - **Padrão Builder**: Implementação para a construção de objetos complexos de forma controlada e segura.
 
-## Estrutura do Projeto
+## Padrão de Arquitetura: Camadas
+A aplicação segue o **padrão de arquitetura em camadas**, onde cada camada tem responsabilidades bem definidas. Isso promove a separação de responsabilidades e facilita a manutenção e evolução da aplicação.
 
-A aplicação está estruturada em camadas, seguindo o padrão MVC:
-
-- **Controller**: Responsável por receber as requisições e retornar as respostas.
-- **Service**: Contém a lógica de negócios da aplicação.
-- **Repository**: Realiza a comunicação com o banco de dados.
+### Estrutura de Camadas:
+- **Controller**: Responsável por receber as requisições e retornar as respostas adequadas.
+- **Service**: Contém a lógica de negócios da aplicação, sendo responsável pelas regras de funcionamento.
+- **Repository**: Realiza a comunicação com o banco de dados para persistir ou recuperar dados.
 - **Model**: Representa as entidades do sistema.
 
-## Configuração do Ambiente
-
-1. Certifique-se de ter o Java 17 e Maven instalados.
-2. Clone o repositório do projeto:
+## Como Executar o Projeto
+1. Clone o repositório:
    ```bash
-   git clone https://github.com/sirkaue/demo-park-api
+   git clone https://github.com/seu-usuario/demo-park-api.git
