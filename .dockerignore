@@ -1,0 +1,23 @@
+# Ignorar pastas do Maven e arquivos de build locais
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+build.properties
+
+# Ignorar arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Ignorar arquivos de IDE
+.idea/
+.vscode/
+*.iml
+
+# Ignorar logs e arquivos temporários
+*.log
+*.tmp
+*.swp
