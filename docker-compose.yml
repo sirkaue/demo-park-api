@@ -1,0 +1,37 @@
+services:
+  demo-park-api:
+    container_name: demo-park-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: demo-park-api:dev
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://demo-park-db:3306/demo_park?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=America/Sao_Paulo&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: admin123
+    depends_on:
+      - demo-park-db
+    networks:
+      - demo-park-network
+
+  demo-park-db:
+    container_name: demo-park-db
+    image: mysql:8.0
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: demo_park
+      MYSQL_ROOT_PASSWORD: admin123
+    volumes:
+      - demo_park_data:/var/lib/mysql
+    networks:
+      - demo-park-network
+
+volumes:
+  demo_park_data:
+
+networks:
+  demo-park-network:
+    driver: bridge
