@@ -53,8 +53,31 @@ promove a separação de responsabilidades e facilita a manutenção e evoluçã
 - **Repository**: Realiza a comunicação com o banco de dados para persistir ou recuperar dados.
 - **Model**: Representa as entidades do sistema.
 
-## Como Executar o Projeto
+## 🚀 Como Executar o Projeto
+
+### Requisitos
+- Java 17+
+- Maven
 
 1. Clone o repositório:
    ```bash
    git clone https://github.com/sirkaue/demo-park-api.git
+
+## 🐳 Como Rodar com Docker
+
+Este projeto utiliza um **Dockerfile multi-stage**, separando as etapas de build e runtime para gerar
+uma imagem leve e eficiente.
+
+### Clonar o repositório:
+```bash
+git clone https://github.com/sirkaue/demo-park-api.git
+cd demo-park-api
+```
+
+### 📦 Build da Imagem
+
+Execute o comando abaixo na raiz do projeto (onde está o `Dockerfile` e o `docker-compose.yml`):
+
+```bash
+docker-compose up --build
+```
